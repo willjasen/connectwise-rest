@@ -15,9 +15,11 @@
  * @constructor
  */
 function SystemAPI(options) {
+	var _Documents = require('./Documents');
     var _Members = require('./Members');
 
     return {
+    	Documents: new _Documents(options)
         Members: new _Members(options)
     }
 }
