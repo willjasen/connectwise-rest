@@ -105,6 +105,7 @@ To access cloud-hosted ConnectWise, use the `companyUrl` of `api-na.myconnectwis
 | Service Desk API | Tickets             | Complete                      |
 | Service Desk API | Statuses            | Complete                      |
 | Service Desk API | ServiceNotes        | Complete                      |
+| System API       | Documents           | In Progress                   |
 | Time API         | TimeEntries         | Complete                      |
 
 
