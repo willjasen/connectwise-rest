@@ -144,6 +144,58 @@ ConnectWise.prototype.api = function (path, method, params) {
 };
 
 /**
+ *
+ * @param {string} path API method path or full URL to perform method upon
+ * @param {string} method HTTP method, GET, POST, PUT, PATCH, DELETE
+ * @param {object} [params] if required by route, include required params
+ *                          if a GET request, the params are joined into a string
+ *                          if a POST/PUT/PATCH, the params are included in the body
+ */
+ConnectWise.prototype.api_download = function (path, method, params) {
+    //var deferred = Q.defer();
+
+    if (!path) {
+        throw new Error('path must be defined');
+    }
+    if (!method) {
+        throw new Error('method must be defined');
+    }
+
+    var options = {
+        url: this.config.apiUrl + path,
+        headers: {
+            'Accept': 'application/json',
+            'Cache-Control': 'no-cache',
+            'Authorization': this.config.auth
+        },
+        method: method
+    };
+
+    //@TODO perform URL validation here
+    if (path.match(/http:\/\//i) || path.match(/https:\/\//i)) {
+        options.url = path;
+    }
+
+    if (method === 'GET' && params) {
+        options.url += parameterize(params);
+    }
+
+    if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
+        options.headers['Content-Type'] = 'application/json';
+        options.body = JSON.stringify(params);
+    }
+
+    var fs = require('fs');
+
+    request(options, function (err, res) {
+
+    }).pipe(fs.createWriteStream('doodle.png'));
+    
+    //var promise = deferred.promise;
+    //promise.pipe(fs.createWriteStream('./test.txt'));
+};
+
+/**
  * Create a parameterized string for GET requests.
  * Able to use contains, like, etc
  * Example params object: { id: 1234, conditions: 'board=CTS Helpdesk and , orderBy: 'id' }
