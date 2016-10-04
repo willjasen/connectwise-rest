@@ -60,7 +60,7 @@ Documents.prototype.getDocumentById = function (id) {
  * @returns {object}
  */
 Documents.prototype.downloadDocument = function (id) {
-  return this.api('/system/documents/' + id + '/download', 'GET');
+  return this.api_download('/system/documents/' + id + '/download', 'GET');
 };
 
 /**
